@@ -1,4 +1,8 @@
 package com.example.Server_electronic_journale.repository;
 
-public interface ScheduleRepository {
+import com.example.Server_electronic_journale.model.Schedule;
+import org.springframework.data.jpa.repository.JpaRepository;
+
+public interface ScheduleRepository extends JpaRepository<Schedule, Integer> {
+
 }
