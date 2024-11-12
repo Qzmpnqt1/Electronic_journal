@@ -14,31 +14,16 @@ import org.springframework.beans.factory.annotation.Autowired;
 public class Administrator {
 
     @Id
-    @GeneratedValue
-    private int admin_id;
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "admin_id")
+    private int administratorId;
 
     @Setter
     @Column(nullable = false)
     private String name;
 
+    @Setter
     @Column(nullable = false)
     private String password;
-
-    @Autowired
-    private AdministratorService administratorService;
-
-    // Метод для добавления новой группы
-    public Group addGroup(Group group) {
-        return administratorService.addGroup(group);
-    }
-
-    // Метод для добавления новой аудитории
-    public Classroom addClassroom(Classroom classroom) {
-        return administratorService.addClassroom(classroom);
-    }
-
-    // Метод для добавления нового предмета
-    public Subject addSubject(Subject subject) {
-        return administratorService.addSubject(subject);
-    }
 }
+

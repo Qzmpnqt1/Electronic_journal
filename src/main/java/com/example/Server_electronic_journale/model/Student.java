@@ -19,11 +19,12 @@ import java.util.Set;
 public class Student implements UserDetails {
 
     @Id
-    @GeneratedValue
-    private int student_id;
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "student_id")
+    private int studentId;
 
     @Setter
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "group_id", nullable = false)
     private Group group;
 
@@ -39,18 +40,18 @@ public class Student implements UserDetails {
     @Column(nullable = false)
     private String patronymic;
 
-    @Column(nullable = false)
-    private LocalDate date_of_birth;
+    @Column(nullable = false, name = "date_of_birth")
+    private LocalDate dateOfBirth;
 
-    @Column(nullable = false)
+    @Column(nullable = false, unique = true)
     private String email;
 
+    @Setter
     @Column(nullable = false)
     private String password;
 
-    // Связь с зачетной книжкой (Gradebook)
-    @OneToMany(mappedBy = "student", cascade = CascadeType.ALL, orphanRemoval = true)
-    private Set<Gradebook> gradebooks = new HashSet<>();  // Множество записей зачеток
+    @OneToOne(mappedBy = "student", cascade = CascadeType.ALL, orphanRemoval = true)
+    private Gradebook gradebook;
 
     // Реализация методов UserDetails
     @Override

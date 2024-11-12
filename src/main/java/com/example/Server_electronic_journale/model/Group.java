@@ -10,24 +10,22 @@ import java.util.Set;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-@Table(name = "groups")
+@Table(name = "`groups`")
 public class Group {
 
     @Id
-    @GeneratedValue
-    private int group_id;
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "group_id")
+    private int groupId;
 
     @Setter
     @Column(nullable = false)
     private String name;
 
     // Связь с классом Student
+    @Builder.Default
     @OneToMany(mappedBy = "group", cascade = CascadeType.ALL, orphanRemoval = true)
     private Set<Student> students = new HashSet<>();
-
-    // Связь с расписанием
-    @OneToMany(mappedBy = "group", cascade = CascadeType.ALL, orphanRemoval = true)
-    private Set<Schedule> schedules = new HashSet<>();  // Множество расписаний для группы
 
     public void addStudent(Student student) {
         students.add(student);
@@ -37,15 +35,5 @@ public class Group {
     public void removeStudent(Student student) {
         students.remove(student);
         student.setGroup(null);
-    }
-
-    public void addSchedule(Schedule schedule) {
-        schedules.add(schedule);
-        schedule.setGroup(this);
-    }
-
-    public void removeSchedule(Schedule schedule) {
-        schedules.remove(schedule);
-        schedule.setGroup(null);
     }
 }

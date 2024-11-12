@@ -3,6 +3,8 @@ package com.example.Server_electronic_journale.model;
 import jakarta.persistence.*;
 import lombok.*;
 import java.time.LocalDate;
+import java.util.HashSet;
+import java.util.Set;
 
 @Getter
 @Entity
@@ -13,26 +15,25 @@ import java.time.LocalDate;
 public class Gradebook {
 
     @Id
-    @GeneratedValue
-    private int gradebook_id;
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "gradebook_id")
+    private int gradebookId;
 
-    // Связь со студентом (каждая зачетка принадлежит студенту)
-    @ManyToOne
+    @OneToOne
     @JoinColumn(name = "student_id", nullable = false)
     private Student student;
 
-    // Связь с предметом
-    @ManyToOne
-    @JoinColumn(name = "subject_id", nullable = false)
-    private Subject subject;
+    // Список записей оценок для разных предметов
+    @OneToMany(mappedBy = "gradebook", cascade = CascadeType.ALL, orphanRemoval = true)
+    private Set<GradeEntry> grades = new HashSet<>();
 
-    // Оценка
-    @Setter
-    @Column(nullable = false)
-    private int grade;  // Оценка (2, 3, 4 или 5)
+    public void addGrade(GradeEntry gradeEntry) {
+        grades.add(gradeEntry);
+        gradeEntry.setGradebook(this);
+    }
 
-    // Дата выставления оценки
-    @Setter
-    @Column(nullable = false)
-    private LocalDate dateOfGrade;
+    public void removeGrade(GradeEntry gradeEntry) {
+        grades.remove(gradeEntry);
+        gradeEntry.setGradebook(null);
+    }
 }

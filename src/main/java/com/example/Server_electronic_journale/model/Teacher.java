@@ -18,8 +18,9 @@ import java.util.Set;
 public class Teacher implements UserDetails {
 
     @Id
-    @GeneratedValue
-    private int teacher_id;
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "teacher_id")
+    private int teacherId;
 
     @Setter
     @Column(nullable = false)

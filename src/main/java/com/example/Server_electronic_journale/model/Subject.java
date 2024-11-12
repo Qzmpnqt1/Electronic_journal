@@ -14,18 +14,23 @@ import java.util.Set;
 public class Subject {
 
     @Id
-    @GeneratedValue
-    private int subject_id;
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "subject_id")
+    private int subjectId;
 
     @Setter
     @Column(nullable = false)
     private String name;
 
+    @Setter
+    @Column(nullable = false)
+    private int course;
+
     // Связь Many-to-Many с Teacher
     @ManyToMany(mappedBy = "subjects")
     private Set<Teacher> teachers;
 
-    // Связь с зачетками
+    // Обновленная связь с GradeEntry
     @OneToMany(mappedBy = "subject", cascade = CascadeType.ALL, orphanRemoval = true)
-    private Set<Gradebook> gradebooks = new HashSet<>();  // Множество записей зачеток для предмета
+    private Set<GradeEntry> gradeEntries = new HashSet<>();  // Множество записей оценок для предмета
 }

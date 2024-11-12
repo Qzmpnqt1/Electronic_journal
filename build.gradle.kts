@@ -22,12 +22,12 @@ dependencies {
 	implementation("org.springframework.boot:spring-boot-starter-data-jpa")
 	implementation("org.springframework.boot:spring-boot-starter-web")
 	implementation("org.springframework.boot:spring-boot-starter-security")
-	runtimeOnly("com.mysql:mysql-connector-j")
+	implementation("mysql:mysql-connector-java:8.0.32") // Убедитесь, что версия актуальна
 	testImplementation("org.springframework.boot:spring-boot-starter-test")
 	testRuntimeOnly("org.junit.platform:junit-platform-launcher")
 	compileOnly("org.projectlombok:lombok:1.18.26")
 	annotationProcessor("org.projectlombok:lombok:1.18.26")
-    implementation(kotlin("stdlib-jdk8"))
+	implementation(kotlin("stdlib-jdk8"))
 }
 
 tasks.withType<Test> {

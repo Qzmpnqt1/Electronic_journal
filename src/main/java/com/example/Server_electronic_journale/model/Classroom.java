@@ -14,8 +14,9 @@ import java.util.Set;
 public class Classroom {
 
     @Id
-    @GeneratedValue
-    private int classroom_id;
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "classroom_id")
+    private int classroomId;
 
     @Setter
     @Column(name = "name", nullable = false)
@@ -24,8 +25,4 @@ public class Classroom {
     @Setter
     @Column(name = "capacity", nullable = false)
     private int capacity;
-
-    // Связь с расписанием
-    @OneToMany(mappedBy = "classroom", cascade = CascadeType.ALL, orphanRemoval = true)
-    private Set<Schedule> schedules = new HashSet<>();  // Множество расписаний для аудитории
 }
