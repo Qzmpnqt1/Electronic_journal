@@ -3,12 +3,12 @@ package com.example.Server_electronic_journale.model;
 import jakarta.persistence.*;
 import lombok.*;
 import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
+
 import java.time.LocalDate;
 import java.util.Collection;
-import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
 
 @Getter
 @Entity
@@ -50,13 +50,18 @@ public class Student implements UserDetails {
     @Column(nullable = false)
     private String password;
 
+    @Setter
+    @Column(nullable = false)
+    private  String role;
+
     @OneToOne(mappedBy = "student", cascade = CascadeType.ALL, orphanRemoval = true)
+    @Setter
     private Gradebook gradebook;
 
     // Реализация методов UserDetails
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
-        return List.of();
+        return List.of(new SimpleGrantedAuthority("ROLE_STUDENT"));
     }
 
     @Override

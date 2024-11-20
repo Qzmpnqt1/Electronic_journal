@@ -1,6 +1,5 @@
 package com.example.Server_electronic_journale.controller;
 
-import com.example.Server_electronic_journale.model.Classroom;
 import com.example.Server_electronic_journale.model.Group;
 import com.example.Server_electronic_journale.model.Subject;
 import com.example.Server_electronic_journale.service.AdministratorService;
@@ -8,7 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
-@RequestMapping("/administrator")
+@RequestMapping("/admin")
 public class AdministratorController {
 
     private final AdministratorService administratorService;
@@ -16,11 +15,6 @@ public class AdministratorController {
     @Autowired
     public AdministratorController(AdministratorService administratorService) {
         this.administratorService = administratorService;
-    }
-
-    @PostMapping("/classroom")
-    public Classroom addClassroom(@RequestBody Classroom classroom) {
-        return administratorService.addClassroom(classroom);
     }
 
     @PostMapping("/group")
@@ -31,11 +25,6 @@ public class AdministratorController {
     @PostMapping("/subject")
     public Subject addSubject(@RequestBody Subject subject) {
         return administratorService.addSubject(subject);
-    }
-
-    @DeleteMapping("/classroom/{id}")
-    public void deleteClassroom(@PathVariable int id) {
-        administratorService.deleteClassroom(id);
     }
 
     @DeleteMapping("/group/{id}")

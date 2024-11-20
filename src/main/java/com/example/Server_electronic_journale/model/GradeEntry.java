@@ -6,6 +6,8 @@ import lombok.*;
 import java.time.LocalDate;
 
 @Getter
+@Setter
+@ToString
 @Entity
 @Builder
 @NoArgsConstructor
@@ -18,21 +20,18 @@ public class GradeEntry {
     @Column(name = "entry_id")
     private int entryId;
 
-    @Setter
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "gradebook_id", nullable = false)
     private Gradebook gradebook;
 
-    @Setter
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "subject_id", nullable = false)
     private Subject subject;
 
-    @Setter
     @Column(nullable = false)
     private int grade;
 
-    @Setter
     @Column(nullable = false)
     private LocalDate dateOfGrade;
 }
+

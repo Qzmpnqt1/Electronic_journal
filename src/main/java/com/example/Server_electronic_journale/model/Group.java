@@ -22,18 +22,13 @@ public class Group {
     @Column(nullable = false)
     private String name;
 
-    // Связь с классом Student
+    // Связь с Student
     @Builder.Default
     @OneToMany(mappedBy = "group", cascade = CascadeType.ALL, orphanRemoval = true)
     private Set<Student> students = new HashSet<>();
 
-    public void addStudent(Student student) {
-        students.add(student);
-        student.setGroup(this);
-    }
-
-    public void removeStudent(Student student) {
-        students.remove(student);
-        student.setGroup(null);
-    }
+    // Связь Many-to-Many с Subject
+    @Builder.Default
+    @ManyToMany(mappedBy = "groups")
+    private Set<Subject> subjects = new HashSet<>();
 }

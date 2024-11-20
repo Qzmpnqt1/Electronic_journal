@@ -4,11 +4,11 @@ import com.example.Server_electronic_journale.model.Gradebook;
 import com.example.Server_electronic_journale.model.Student;
 import com.example.Server_electronic_journale.service.StudentService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Repository;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 
-@Repository
+@RestController
 @RequestMapping("/student")
 public class StudentController {
 

@@ -7,6 +7,8 @@ import java.util.HashSet;
 import java.util.Set;
 
 @Getter
+@Setter
+@ToString
 @Entity
 @Builder
 @NoArgsConstructor
@@ -19,11 +21,11 @@ public class Gradebook {
     @Column(name = "gradebook_id")
     private int gradebookId;
 
-    @OneToOne
+    @OneToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "student_id", nullable = false)
     private Student student;
 
-    // Список записей оценок для разных предметов
+    @Builder.Default
     @OneToMany(mappedBy = "gradebook", cascade = CascadeType.ALL, orphanRemoval = true)
     private Set<GradeEntry> grades = new HashSet<>();
 

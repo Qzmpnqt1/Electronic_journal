@@ -30,7 +30,18 @@ public class Subject {
     @ManyToMany(mappedBy = "subjects")
     private Set<Teacher> teachers;
 
-    // Обновленная связь с GradeEntry
+    // Связь с GradeEntry
+    @Builder.Default
     @OneToMany(mappedBy = "subject", cascade = CascadeType.ALL, orphanRemoval = true)
-    private Set<GradeEntry> gradeEntries = new HashSet<>();  // Множество записей оценок для предмета
+    private Set<GradeEntry> gradeEntries = new HashSet<>();
+
+    // Связь Many-to-Many с Group
+    @Builder.Default
+    @ManyToMany
+    @JoinTable(
+            name = "subject_group",
+            joinColumns = @JoinColumn(name = "subject_id"),
+            inverseJoinColumns = @JoinColumn(name = "group_id")
+    )
+    private Set<Group> groups = new HashSet<>();
 }

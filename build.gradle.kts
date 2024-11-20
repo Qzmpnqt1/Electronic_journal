@@ -23,6 +23,12 @@ dependencies {
 	implementation("org.springframework.boot:spring-boot-starter-web")
 	implementation("org.springframework.boot:spring-boot-starter-security")
 	implementation("mysql:mysql-connector-java:8.0.32") // Убедитесь, что версия актуальна
+
+	implementation ("jakarta.servlet:jakarta.servlet-api:5.0.0")
+	implementation ("io.jsonwebtoken:jjwt-api:0.11.5")
+	implementation ("io.jsonwebtoken:jjwt-impl:0.11.5")
+	implementation ("io.jsonwebtoken:jjwt-jackson:0.11.5") // Для поддержки JSON (например, через Jackson)
+
 	testImplementation("org.springframework.boot:spring-boot-starter-test")
 	testRuntimeOnly("org.junit.platform:junit-platform-launcher")
 	compileOnly("org.projectlombok:lombok:1.18.26")

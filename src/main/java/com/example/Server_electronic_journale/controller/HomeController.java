@@ -4,10 +4,11 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-public class ConnectionTestController {
+public class HomeController {
 
-    @GetMapping("/test")
-    public String testConnection() {
-        return "Connection successful!";
+    @GetMapping("/")
+    public String home() {
+        return "Добро пожаловать на главную страницу!";
     }
 }
+

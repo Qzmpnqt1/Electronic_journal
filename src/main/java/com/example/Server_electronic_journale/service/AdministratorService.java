@@ -1,6 +1,5 @@
 package com.example.Server_electronic_journale.service;
 
-import com.example.Server_electronic_journale.model.Classroom;
 import com.example.Server_electronic_journale.model.Group;
 import com.example.Server_electronic_journale.model.Student;
 import com.example.Server_electronic_journale.model.Subject;
@@ -11,7 +10,6 @@ import org.springframework.stereotype.Service;
 @Service
 public class AdministratorService {
 
-    private final ClassroomRepository classroomRepository;
     private final GroupRepository groupRepository;
     private final SubjectRepository subjectRepository;
     private final StudentRepository studentRepository;
@@ -19,20 +17,14 @@ public class AdministratorService {
 
 
     @Autowired
-    public AdministratorService(ClassroomRepository classroomRepository,
-                                GroupRepository groupRepository,
+    public AdministratorService(GroupRepository groupRepository,
                                 SubjectRepository subjectRepository,
                                 StudentRepository studentRepository,
                                 GradebookRepository gradebookRepository) {
-        this.classroomRepository = classroomRepository;
         this.groupRepository = groupRepository;
         this.subjectRepository = subjectRepository;
         this.studentRepository = studentRepository;
         this.gradebookRepository = gradebookRepository;
-    }
-
-    public Classroom addClassroom(Classroom classroom) {
-        return classroomRepository.save(classroom);
     }
 
     public Group addGroup(Group group) {
@@ -52,12 +44,6 @@ public class AdministratorService {
         else {
             throw new IllegalStateException("Не удается удалить группу со студентами");
         }
-    }
-
-    public void deleteClassroom(int classroomId) {
-        Classroom classroom = classroomRepository.findById(classroomId)
-                .orElseThrow(() -> new IllegalArgumentException("Аудитория не найдена"));
-        classroomRepository.delete(classroom);
     }
 
     public void removeStudentFromGroup(int studentId) {

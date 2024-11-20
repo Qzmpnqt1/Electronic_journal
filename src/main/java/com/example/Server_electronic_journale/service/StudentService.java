@@ -3,6 +3,7 @@ package com.example.Server_electronic_journale.service;
 import com.example.Server_electronic_journale.model.Student;
 import com.example.Server_electronic_journale.repository.StudentRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 
@@ -18,10 +19,15 @@ public class StudentService {
 
     // Получение текущего аутентифицированного студента
     public Student getCurrentStudent() {
-        String email = SecurityContextHolder.getContext().getAuthentication().getName();
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        if (authentication == null || !authentication.isAuthenticated()) {
+            throw new IllegalStateException("Пользователь не аутентифицирован");
+        }
+        String email = authentication.getName();
         return studentRepository.findByEmail(email)
                 .orElseThrow(() -> new IllegalArgumentException("Студент не найден"));
     }
+
 
     public Student getStudentByID(int studentId) {
         return studentRepository.findById(studentId)

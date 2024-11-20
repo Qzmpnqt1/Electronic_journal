@@ -14,4 +14,7 @@ public interface GradebookRepository extends JpaRepository<Gradebook, Integer> {
 
     // Метод для поиска зачетки по ID студента
     Optional<Gradebook> findByStudent_StudentId(int studentId);
+
+    // Новый метод для поиска зачетки по email студента
+    Optional<Gradebook> findByStudent_Email(String email);
 }
