@@ -30,7 +30,6 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
     private static final String HEADER_NAME = "Authorization";
     private static final String BEARER_PREFIX = "Bearer ";
 
-    // Список публичных URL-адресов, которые не требуют аутентификации
     private static final List<String> PUBLIC_URLS = List.of("/", "/auth", "/auth/**");
 
     @Override
@@ -41,7 +40,6 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
     ) throws ServletException, IOException {
         final String requestURI = request.getRequestURI();
 
-        // Пропускаем запросы к публичным маршрутам
         if (isPublicUrl(requestURI)) {
             filterChain.doFilter(request, response);
             return;
@@ -78,9 +76,6 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
         filterChain.doFilter(request, response);
     }
 
-    /**
-     * Проверяет, является ли URL публичным.
-     */
     private boolean isPublicUrl(String requestURI) {
         for (String uri : PUBLIC_URLS) {
             if (uri.endsWith("/**")) {
@@ -97,4 +92,3 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
         return false;
     }
 }
-

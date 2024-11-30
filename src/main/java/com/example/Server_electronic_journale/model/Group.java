@@ -1,5 +1,7 @@
 package com.example.Server_electronic_journale.model;
 
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 import jakarta.persistence.*;
 import lombok.*;
 import java.util.HashSet;
@@ -11,6 +13,9 @@ import java.util.Set;
 @NoArgsConstructor
 @AllArgsConstructor
 @Table(name = "`groups`")
+@JsonIdentityInfo(
+        generator = ObjectIdGenerators.PropertyGenerator.class,
+        property = "groupId")
 public class Group {
 
     @Id
@@ -19,16 +24,20 @@ public class Group {
     private int groupId;
 
     @Setter
-    @Column(nullable = false)
+    @Column(nullable = false, unique = true)
     private String name;
 
-    // Связь с Student
     @Builder.Default
     @OneToMany(mappedBy = "group", cascade = CascadeType.ALL, orphanRemoval = true)
     private Set<Student> students = new HashSet<>();
 
-    // Связь Many-to-Many с Subject
     @Builder.Default
-    @ManyToMany(mappedBy = "groups")
+    @Setter
+    @ManyToMany(fetch = FetchType.LAZY)
+    @JoinTable(
+            name = "subject_group",
+            joinColumns = @JoinColumn(name = "group_id"),
+            inverseJoinColumns = @JoinColumn(name = "subject_id")
+    )
     private Set<Subject> subjects = new HashSet<>();
 }

@@ -1,14 +1,12 @@
 package com.example.Server_electronic_journale.controller;
 
-import com.example.Server_electronic_journale.dto.AuthRequest;
-import com.example.Server_electronic_journale.dto.AuthResponse;
-import com.example.Server_electronic_journale.dto.StudentSignUpRequest;
-import com.example.Server_electronic_journale.dto.TeacherSignUpRequest;
-import com.example.Server_electronic_journale.dto.SignUpResponse;
+import com.example.Server_electronic_journale.dto.*;
 import com.example.Server_electronic_journale.service.AuthenticationService;
+import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
@@ -36,12 +34,12 @@ public class AuthenticationController {
 
     // Регистрация студента
     @PostMapping("/register/student")
-    public ResponseEntity<SignUpResponse> registerStudent(@RequestBody StudentSignUpRequest request) {
+    public ResponseEntity<String> registerStudent(@RequestBody StudentRegistrationRequest request) {
         try {
-            SignUpResponse response = authenticationService.registerStudent(request);
-            return ResponseEntity.status(HttpStatus.CREATED).body(response);
+            authenticationService.registerStudent(request);
+            return ResponseEntity.ok("Регистрация успешна");
         } catch (Exception e) {
-            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(null);
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(e.getMessage());
         }
     }
 

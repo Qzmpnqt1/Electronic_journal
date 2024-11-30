@@ -10,6 +10,9 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.security.core.userdetails.UserDetails;
 
+import java.time.LocalDate;
+import java.time.format.DateTimeParseException;
+import java.util.Date;
 import java.util.Optional;
 import java.util.Set;
 import java.util.stream.Collectors;
@@ -41,29 +44,41 @@ public class AuthenticationService {
     @Autowired
     private AuthenticationManager authenticationManager;
 
-    public SignUpResponse registerStudent(StudentSignUpRequest request) {
+    public void registerStudent(StudentRegistrationRequest request) {
+        // Логируем ID группы
+        System.out.println("Trying to find group with ID: " + request.getGroupId());
+
+        // Проверка на существующий email
         if (studentRepository.findByEmail(request.getEmail()).isPresent()) {
             throw new IllegalArgumentException("Email уже используется");
         }
 
+        // Получение группы по ID
         Group group = groupRepository.findById(request.getGroupId())
-                .orElseThrow(() -> new IllegalArgumentException("Группа не найдена"));
+                .orElseThrow(() -> new IllegalArgumentException("Группа с ID " + request.getGroupId() + " не найдена"));
 
+        // Преобразование даты рождения
+        LocalDate dateOfBirth;
+        try {
+            dateOfBirth = LocalDate.parse(request.getDateOfBirth());
+        } catch (DateTimeParseException e) {
+            throw new IllegalArgumentException("Неверный формат даты рождения. Ожидается yyyy-MM-dd");
+        }
+
+        // Создание нового ученика
         Student student = Student.builder()
-                .email(request.getEmail())
-                .password(passwordEncoder.encode(request.getPassword()))
                 .name(request.getName())
                 .surname(request.getSurname())
                 .patronymic(request.getPatronymic())
-                .dateOfBirth(request.getDateOfBirth())
+                .dateOfBirth(dateOfBirth)
+                .email(request.getEmail())
+                .password(passwordEncoder.encode(request.getPassword()))
                 .group(group)
+                .role("ROLE_STUDENT")
                 .build();
 
+        // Сохранение ученика
         studentRepository.save(student);
-
-        String jwt = jwtService.generateToken(student);
-
-        return new SignUpResponse(jwt, student.getUsername(), "ROLE_STUDENT");
     }
 
     public SignUpResponse registerTeacher(TeacherSignUpRequest request) {
@@ -131,5 +146,4 @@ public class AuthenticationService {
 
         throw new IllegalArgumentException("Пользователь не найден");
     }
-
 }

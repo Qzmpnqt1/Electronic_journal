@@ -7,6 +7,7 @@ import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
 import java.util.Collection;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
@@ -43,16 +44,17 @@ public class Teacher implements UserDetails {
 
     @Setter
     @Column(nullable = false)
-    private  String role;
+    private String role;
 
-    // Связь Many-to-Many с Subject
+    // Добавляем @Builder.Default для инициализации по умолчанию
+    @Builder.Default
     @ManyToMany
     @JoinTable(
             name = "teacher_subject",
             joinColumns = @JoinColumn(name = "teacher_id"),
             inverseJoinColumns = @JoinColumn(name = "subject_id")
     )
-    private Set<Subject> subjects;
+    private Set<Subject> subjects = new HashSet<>();
 
     // Реализация методов UserDetails
     @Override
@@ -85,3 +87,4 @@ public class Teacher implements UserDetails {
         return true;
     }
 }
+

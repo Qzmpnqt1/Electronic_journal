@@ -1,5 +1,7 @@
 package com.example.Server_electronic_journale.model;
 
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 import jakarta.persistence.*;
 import lombok.*;
 import java.util.HashSet;
@@ -10,7 +12,12 @@ import java.util.Set;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-@Table(name = "subjects")
+@Table(name = "subjects", uniqueConstraints = {
+        @UniqueConstraint(columnNames = "name")
+})
+@JsonIdentityInfo(
+        generator = ObjectIdGenerators.PropertyGenerator.class,
+        property = "subjectId")
 public class Subject {
 
     @Id
@@ -19,29 +26,24 @@ public class Subject {
     private int subjectId;
 
     @Setter
-    @Column(nullable = false)
+    @Column(nullable = false, unique = true) // Уникальность на уровне базы данных
     private String name;
 
     @Setter
     @Column(nullable = false)
     private int course;
 
-    // Связь Many-to-Many с Teacher
-    @ManyToMany(mappedBy = "subjects")
-    private Set<Teacher> teachers;
-
-    // Связь с GradeEntry
     @Builder.Default
-    @OneToMany(mappedBy = "subject", cascade = CascadeType.ALL, orphanRemoval = true)
+    @Setter
+    @ManyToMany(mappedBy = "subjects", fetch = FetchType.LAZY)
+    private Set<Teacher> teachers = new HashSet<>();
+
+    @Builder.Default
+    @OneToMany(mappedBy = "subject", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.LAZY)
     private Set<GradeEntry> gradeEntries = new HashSet<>();
 
-    // Связь Many-to-Many с Group
     @Builder.Default
-    @ManyToMany
-    @JoinTable(
-            name = "subject_group",
-            joinColumns = @JoinColumn(name = "subject_id"),
-            inverseJoinColumns = @JoinColumn(name = "group_id")
-    )
+    @Setter
+    @ManyToMany(mappedBy = "subjects", fetch = FetchType.LAZY)
     private Set<Group> groups = new HashSet<>();
 }
