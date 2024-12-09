@@ -1,6 +1,8 @@
 package com.example.Server_electronic_journale.model;
 
 import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 import jakarta.persistence.*;
 import lombok.*;
@@ -28,12 +30,13 @@ public class Group {
     private String name;
 
     @Builder.Default
+    @JsonManagedReference  // Убедитесь, что эта аннотация есть
     @OneToMany(mappedBy = "group", cascade = CascadeType.ALL, orphanRemoval = true)
     private Set<Student> students = new HashSet<>();
 
     @Builder.Default
     @Setter
-    @ManyToMany(fetch = FetchType.LAZY)
+    @ManyToMany(fetch = FetchType.EAGER)
     @JoinTable(
             name = "subject_group",
             joinColumns = @JoinColumn(name = "group_id"),

@@ -1,5 +1,8 @@
 package com.example.Server_electronic_journale.model;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import lombok.*;
 import org.springframework.security.core.GrantedAuthority;
@@ -26,6 +29,8 @@ public class Student implements UserDetails {
     @Setter
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "group_id", nullable = false)
+    @JsonBackReference  // Убедитесь, что эта аннотация есть
+    @JsonIgnore  // Это игнорирует поле group в сериализованном объекте
     private Group group;
 
     @Setter

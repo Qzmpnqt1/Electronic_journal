@@ -1,9 +1,12 @@
 package com.example.Server_electronic_journale.model;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import lombok.*;
 import java.time.LocalDate;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 @Getter
@@ -21,21 +24,15 @@ public class Gradebook {
     @Column(name = "gradebook_id")
     private int gradebookId;
 
+    @JsonBackReference // Отключаем сериализацию в поле Gradebook -> Student
     @OneToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "student_id", nullable = false)
     private Student student;
 
-    @Builder.Default
+    // Добавляем каскадное удаление для связи с GradeEntry
     @OneToMany(mappedBy = "gradebook", cascade = CascadeType.ALL, orphanRemoval = true)
-    private Set<GradeEntry> grades = new HashSet<>();
-
-    public void addGrade(GradeEntry gradeEntry) {
-        grades.add(gradeEntry);
-        gradeEntry.setGradebook(this);
-    }
-
-    public void removeGrade(GradeEntry gradeEntry) {
-        grades.remove(gradeEntry);
-        gradeEntry.setGradebook(null);
-    }
+    private List<GradeEntry> gradeEntries;
 }
+
+
+

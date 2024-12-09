@@ -43,10 +43,10 @@ public class TeacherService {
             throw new IllegalStateException("Пользователь не аутентифицирован");
         }
         String email = authentication.getName();
+        System.out.println("Аутентифицированный пользователь: " + email); // Логирование
         return teacherRepository.findByEmail(email)
                 .orElseThrow(() -> new IllegalArgumentException("Учитель не найден"));
     }
-
 
     // Получение предметов, которые ведет учитель
     public Set<Subject> getSubjectsForTeacher() {
@@ -65,57 +65,7 @@ public class TeacherService {
     public Set<Student> getStudentsInGroup(int groupId) {
         Group group = groupRepository.findById(groupId)
                 .orElseThrow(() -> new IllegalArgumentException("Группа не найдена"));
+        System.out.println("Найдено студентов: " + group.getStudents().size()); // Логирование
         return group.getStudents();
-    }
-
-    // Добавление оценки студенту по предмету
-    @Transactional
-    public GradeEntry addGradeToStudent(int studentId, int subjectId, int grade) {
-        Student student = studentRepository.findById(studentId)
-                .orElseThrow(() -> new IllegalArgumentException("Студент не найден"));
-
-        Subject subject = subjectRepository.findById(subjectId)
-                .orElseThrow(() -> new IllegalArgumentException("Предмет не найден"));
-
-        // Проверяем, что учитель ведет этот предмет
-        Teacher teacher = getCurrentTeacher();
-        if (!teacher.getSubjects().contains(subject)) {
-            throw new IllegalArgumentException("Вы не преподаете этот предмет");
-        }
-
-        // Проверяем, что студент изучает этот предмет в своей группе
-        if (!subject.getGroups().contains(student.getGroup())) {
-            throw new IllegalArgumentException("Студент не изучает этот предмет");
-        }
-
-        // Получаем зачетку студента
-        Gradebook gradebook = student.getGradebook();
-        if (gradebook == null) {
-            // Создаем зачетку, если ее нет
-            gradebook = new Gradebook();
-            gradebook.setStudent(student);
-            student.setGradebook(gradebook);
-            gradebookRepository.save(gradebook);
-        }
-
-        // Создаем запись оценки
-        GradeEntry gradeEntry = new GradeEntry();
-        gradeEntry.setGradebook(gradebook);
-        gradeEntry.setSubject(subject);
-        gradeEntry.setGrade(grade);
-        gradeEntry.setDateOfGrade(LocalDate.now());
-
-        // Добавляем запись в зачетку
-        gradebook.addGrade(gradeEntry);
-
-        gradeEntryRepository.save(gradeEntry);
-        gradebookRepository.save(gradebook);
-
-        return gradeEntry;
-    }
-
-    // Получение личных данных учителя
-    public Teacher getPersonalData() {
-        return getCurrentTeacher();
     }
 }

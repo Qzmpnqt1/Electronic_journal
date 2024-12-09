@@ -81,16 +81,19 @@ public class AuthenticationService {
         studentRepository.save(student);
     }
 
-    public SignUpResponse registerTeacher(TeacherSignUpRequest request) {
+    public void registerTeacher(TeacherSignUpRequest request) {
+        // Проверка на существующий email
         if (teacherRepository.findByEmail(request.getEmail()).isPresent()) {
             throw new IllegalArgumentException("Email уже используется");
         }
 
+        // Получаем предметы, которые будут у учителя
         Set<Subject> subjects = request.getSubjectIds().stream()
                 .map(id -> subjectRepository.findById(id)
                         .orElseThrow(() -> new IllegalArgumentException("Предмет не найден: ID " + id)))
                 .collect(Collectors.toSet());
 
+        // Создание нового учителя
         Teacher teacher = Teacher.builder()
                 .email(request.getEmail())
                 .password(passwordEncoder.encode(request.getPassword()))
@@ -98,13 +101,11 @@ public class AuthenticationService {
                 .surname(request.getSurname())
                 .patronymic(request.getPatronymic())
                 .subjects(subjects)
+                .role("ROLE_TEACHER")
                 .build();
 
+        // Сохраняем учителя
         teacherRepository.save(teacher);
-
-        String jwt = jwtService.generateToken(teacher);
-
-        return new SignUpResponse(jwt, teacher.getUsername(), "ROLE_TEACHER");
     }
 
     public AuthResponse signIn(AuthRequest request) {

@@ -45,12 +45,12 @@ public class AuthenticationController {
 
     // Регистрация учителя
     @PostMapping("/register/teacher")
-    public ResponseEntity<SignUpResponse> registerTeacher(@RequestBody TeacherSignUpRequest request) {
+    public ResponseEntity<String> registerTeacher(@RequestBody TeacherSignUpRequest request) {
         try {
-            SignUpResponse response = authenticationService.registerTeacher(request);
-            return ResponseEntity.status(HttpStatus.CREATED).body(response);
+            authenticationService.registerTeacher(request);
+            return ResponseEntity.ok("Регистрация успешна");
         } catch (Exception e) {
-            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(null);
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(e.getMessage());
         }
     }
 }

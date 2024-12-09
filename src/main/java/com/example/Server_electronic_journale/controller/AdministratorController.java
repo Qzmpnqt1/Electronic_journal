@@ -1,10 +1,8 @@
 package com.example.Server_electronic_journale.controller;
 
-import com.example.Server_electronic_journale.dto.GroupDTO;
-import com.example.Server_electronic_journale.dto.GroupResponseDTO;
-import com.example.Server_electronic_journale.dto.SubjectDTO;
-import com.example.Server_electronic_journale.dto.SubjectResponseDTO;
+import com.example.Server_electronic_journale.dto.*;
 import com.example.Server_electronic_journale.model.Group;
+import com.example.Server_electronic_journale.model.Student;
 import com.example.Server_electronic_journale.model.Subject;
 import com.example.Server_electronic_journale.service.AdministratorService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,6 +11,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Set;
 import java.util.stream.Collectors;
 
 @RestController
@@ -84,7 +83,8 @@ public class AdministratorController {
             administratorService.deleteGroup(id);
             return ResponseEntity.ok().build();
         } catch (IllegalArgumentException e) {
-            return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
+            // Возвращаем ошибку с сообщением, если не удалось удалить группу
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(null);
         }
     }
 
@@ -132,6 +132,29 @@ public class AdministratorController {
             return ResponseEntity.ok().build();
         } catch (IllegalArgumentException e) {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
+        }
+    }
+
+    @GetMapping("/groups/{groupId}/students")
+    public ResponseEntity<List<StudentResponseDTO>> getStudentsInGroup(@PathVariable int groupId) {
+        try {
+            Set<Student> students = administratorService.getStudentsInGroup(groupId);
+            List<StudentResponseDTO> studentDTOs = students.stream()
+                    .map(student -> {
+                        StudentResponseDTO dto = new StudentResponseDTO();
+                        dto.setStudentId(student.getStudentId());
+                        dto.setName(student.getName());
+                        dto.setSurname(student.getSurname());
+                        dto.setPatronymic(student.getPatronymic());
+                        dto.setDateOfBirth(student.getDateOfBirth());
+                        dto.setEmail(student.getEmail());
+                        dto.setRole(student.getRole());
+                        return dto;
+                    })
+                    .collect(Collectors.toList());
+            return ResponseEntity.ok(studentDTOs);
+        } catch (IllegalArgumentException e) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(null);
         }
     }
 }

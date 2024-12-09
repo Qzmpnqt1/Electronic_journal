@@ -49,6 +49,7 @@ public class Teacher implements UserDetails {
     // Добавляем @Builder.Default для инициализации по умолчанию
     @Builder.Default
     @ManyToMany
+    @Setter
     @JoinTable(
             name = "teacher_subject",
             joinColumns = @JoinColumn(name = "teacher_id"),

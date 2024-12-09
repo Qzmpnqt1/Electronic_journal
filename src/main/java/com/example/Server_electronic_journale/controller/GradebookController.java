@@ -1,12 +1,13 @@
 package com.example.Server_electronic_journale.controller;
 
+import com.example.Server_electronic_journale.dto.GradeEntryRequest;
 import com.example.Server_electronic_journale.model.GradeEntry;
 import com.example.Server_electronic_journale.service.GradebookService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+
+import java.time.LocalDate;
+import java.util.List;
 
 @RestController
 @RequestMapping("/gradebook")
@@ -20,8 +21,15 @@ public class GradebookController {
     }
 
     @PostMapping("/add-grade")
-    public GradeEntry addGrade(@RequestParam int studentId, @RequestParam int subjectId, @RequestParam int grade) {
-        return gradebookService.addGrade(studentId, subjectId, grade);
+    public GradeEntry addGrade(@RequestBody GradeEntryRequest gradeEntryRequest) {
+        return gradebookService.addGrade(
+                gradeEntryRequest.getStudentId(),
+                gradeEntryRequest.getSubjectId(),
+                gradeEntryRequest.getGrade()
+        );
     }
 }
+
+
+
 

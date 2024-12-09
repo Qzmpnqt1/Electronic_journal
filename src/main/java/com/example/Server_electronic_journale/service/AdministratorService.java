@@ -5,15 +5,15 @@ import com.example.Server_electronic_journale.dto.SubjectDTO;
 import com.example.Server_electronic_journale.model.Group;
 import com.example.Server_electronic_journale.model.Student;
 import com.example.Server_electronic_journale.model.Subject;
-import com.example.Server_electronic_journale.model.Teacher;
 import com.example.Server_electronic_journale.repository.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
-import java.util.Optional;
+import java.util.Set;
 
 @Service
 public class AdministratorService {
@@ -63,6 +63,12 @@ public class AdministratorService {
     public void deleteGroup(int groupId) {
         Group group = groupRepository.findById(groupId)
                 .orElseThrow(() -> new IllegalArgumentException("Группа не найдена"));
+
+        // Проверка наличия студентов в группе
+        if (!group.getStudents().isEmpty()) {
+            throw new IllegalArgumentException("Невозможно удалить группу, так как в ней есть студенты.");
+        }
+
         groupRepository.delete(group);
     }
 
@@ -85,11 +91,20 @@ public class AdministratorService {
         return subjectRepository.findAll();
     }
 
+    @Transactional
     public void removeStudentFromGroup(int studentId) {
         Student student = studentRepository.findById(studentId)
                 .orElseThrow(() -> new IllegalArgumentException("Студент не найден"));
         gradebookRepository.deleteByStudent(student);
         studentRepository.delete(student);
+    }
+
+    // Получение студентов по ID группы
+    public Set<Student> getStudentsInGroup(int groupId) {
+        Group group = groupRepository.findById(groupId)
+                .orElseThrow(() -> new IllegalArgumentException("Группа не найдена"));
+        System.out.println("Найдено студентов: " + group.getStudents().size()); // Логирование
+        return group.getStudents();
     }
 
     public void deleteSubject(int subjectId) {

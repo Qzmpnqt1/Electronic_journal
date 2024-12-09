@@ -2,8 +2,10 @@ package com.example.Server_electronic_journale.model;
 
 import jakarta.persistence.*;
 import lombok.*;
+import org.hibernate.annotations.CreationTimestamp;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 
 @Getter
 @Setter
@@ -30,8 +32,8 @@ public class GradeEntry {
 
     @Column(nullable = false)
     private int grade;
-
-    @Column(nullable = false)
-    private LocalDate dateOfGrade;
 }
+
+
+
 
