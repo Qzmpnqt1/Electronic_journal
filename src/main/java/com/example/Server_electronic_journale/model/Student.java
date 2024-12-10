@@ -1,7 +1,6 @@
 package com.example.Server_electronic_journale.model;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import lombok.*;
@@ -19,6 +18,7 @@ import java.util.List;
 @NoArgsConstructor
 @AllArgsConstructor
 @Table(name = "students")
+@ToString(exclude = { "group", "gradebook" })  // Исключаем рекурсивные ссылки
 public class Student implements UserDetails {
 
     @Id
@@ -29,8 +29,7 @@ public class Student implements UserDetails {
     @Setter
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "group_id", nullable = false)
-    @JsonBackReference  // Убедитесь, что эта аннотация есть
-    @JsonIgnore  // Это игнорирует поле group в сериализованном объекте
+    @JsonBackReference  // На обратной стороне связи
     private Group group;
 
     @Setter
@@ -57,10 +56,11 @@ public class Student implements UserDetails {
 
     @Setter
     @Column(nullable = false)
-    private  String role;
+    private String role;
 
     @OneToOne(mappedBy = "student", cascade = CascadeType.ALL, orphanRemoval = true)
     @Setter
+    @JsonManagedReference  // На управляющей стороне связи
     private Gradebook gradebook;
 
     // Реализация методов UserDetails
@@ -94,3 +94,4 @@ public class Student implements UserDetails {
         return true;
     }
 }
+

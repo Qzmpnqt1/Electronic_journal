@@ -1,9 +1,6 @@
 package com.example.Server_electronic_journale.model;
 
-import com.fasterxml.jackson.annotation.JsonIdentityInfo;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
-import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 import jakarta.persistence.*;
 import lombok.*;
 import java.util.HashSet;
@@ -15,9 +12,7 @@ import java.util.Set;
 @NoArgsConstructor
 @AllArgsConstructor
 @Table(name = "`groups`")
-@JsonIdentityInfo(
-        generator = ObjectIdGenerators.PropertyGenerator.class,
-        property = "groupId")
+@ToString(exclude = { "students", "subjects" })  // Исключаем рекурсивные ссылки
 public class Group {
 
     @Id
@@ -30,7 +25,7 @@ public class Group {
     private String name;
 
     @Builder.Default
-    @JsonManagedReference  // Убедитесь, что эта аннотация есть
+    @JsonManagedReference  // На управляющей стороне связи
     @OneToMany(mappedBy = "group", cascade = CascadeType.ALL, orphanRemoval = true)
     private Set<Student> students = new HashSet<>();
 
@@ -44,3 +39,4 @@ public class Group {
     )
     private Set<Subject> subjects = new HashSet<>();
 }
+

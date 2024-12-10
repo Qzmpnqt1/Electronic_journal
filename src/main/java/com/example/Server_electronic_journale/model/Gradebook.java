@@ -1,6 +1,7 @@
 package com.example.Server_electronic_journale.model;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import lombok.*;
@@ -11,12 +12,12 @@ import java.util.Set;
 
 @Getter
 @Setter
-@ToString
 @Entity
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
 @Table(name = "gradebooks")
+@JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
 public class Gradebook {
 
     @Id
@@ -33,6 +34,8 @@ public class Gradebook {
     @OneToMany(mappedBy = "gradebook", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<GradeEntry> gradeEntries;
 }
+
+
 
 
 

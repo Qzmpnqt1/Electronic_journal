@@ -1,5 +1,7 @@
 package com.example.Server_electronic_journale.service;
 
+import com.example.Server_electronic_journale.dto.GradeEntryDTO;
+import com.example.Server_electronic_journale.dto.GradebookDTO;
 import com.example.Server_electronic_journale.model.*;
 import com.example.Server_electronic_journale.repository.GradeEntryRepository;
 import com.example.Server_electronic_journale.repository.GradebookRepository;
@@ -11,6 +13,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDate;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 public class GradebookService {
@@ -62,6 +65,27 @@ public class GradebookService {
 
         gradeEntryRepository.save(gradeEntry);
         return gradeEntry;
+    }
+
+    @Transactional(readOnly = true)
+    public GradebookDTO getGradebookByStudentEmail(String email) {
+        Gradebook gradebook = gradebookRepository.findByStudent_Email(email)
+                .orElseThrow(() -> new IllegalArgumentException("Зачетка не найдена"));
+
+        List<GradeEntryDTO> gradeEntries = gradebook.getGradeEntries().stream().map(entry -> {
+            GradeEntryDTO dto = new GradeEntryDTO();
+            dto.setEntryId(entry.getEntryId());
+            dto.setGrade(entry.getGrade());
+            dto.setSubjectName(entry.getSubject().getName()); // Предполагается, что Subject имеет поле name
+            return dto;
+        }).collect(Collectors.toList());
+
+        GradebookDTO gradebookDTO = new GradebookDTO();
+        gradebookDTO.setGradebookId(gradebook.getGradebookId());
+        gradebookDTO.setStudentId(gradebook.getStudent().getStudentId());
+        gradebookDTO.setGradeEntries(gradeEntries);
+
+        return gradebookDTO;
     }
 }
 

@@ -28,9 +28,9 @@ public class StudentService {
                 .orElseThrow(() -> new IllegalArgumentException("Студент не найден"));
     }
 
-
     public Student getStudentByID(int studentId) {
         return studentRepository.findById(studentId)
                 .orElseThrow(() -> new IllegalArgumentException("Студент не найден"));
     }
 }
+
