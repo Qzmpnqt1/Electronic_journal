@@ -17,33 +17,18 @@
             android:textSize="24sp"
             android:textColor="@color/purple"
             android:textStyle="bold"
-            android:layout_marginTop="35dp"
+            android:layout_marginTop="130dp"
             android:layout_gravity="center"
             android:paddingBottom="16dp" />
 
-        <!-- Пример списка групп -->
-        <androidx.cardview.widget.CardView
+        <!-- Контейнер для списка групп -->
+        <LinearLayout
+            android:id="@+id/groupsContainer"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"
-            app:cardCornerRadius="12dp"
-            app:cardElevation="4dp">
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="vertical"
-                android:padding="12dp">
-
-                <TextView
-                    android:id="@+id/tvGroupName"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="ИКБО-01-21"
-                    android:textSize="18sp"
-                    android:textStyle="bold"
-                    android:textColor="@color/black" />
-            </LinearLayout>
-        </androidx.cardview.widget.CardView>
+            android:layout_marginTop="30dp"
+            android:orientation="vertical">
+            <!-- Карточки групп будут добавляться сюда программно -->
+        </LinearLayout>
     </LinearLayout>
 </ScrollView>

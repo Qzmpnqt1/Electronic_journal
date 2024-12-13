@@ -1,11 +1,12 @@
-<androidx.cardview.widget.CardView
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_margin="8dp"
     app:cardCornerRadius="12dp"
-    app:cardElevation="6dp">
+    app:cardElevation="6dp"
+    android:background="@color/white">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -13,24 +14,23 @@
         android:orientation="vertical"
         android:padding="12dp">
 
-        <!-- ФИО студента -->
         <TextView
-            android:id="@+id/tvStudentName"
+            android:id="@+id/tvSubjectName"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Иванов Иван Иванович"
-            android:textSize="18sp"
+            android:text="Предмет: Математика"
+            android:textSize="16sp"
             android:textStyle="bold"
-            android:textColor="@color/black" />
+            android:textColor="@color/black"
+            android:paddingBottom="4dp" />
 
-        <!-- ID студента -->
         <TextView
-            android:id="@+id/tvStudentID"
+            android:id="@+id/tvGrade"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="ID: 3213213"
+            android:text="Оценка: 5"
             android:textSize="14sp"
             android:textColor="@color/black"
-            android:layout_marginTop="4dp" />
+            android:paddingBottom="4dp" />
     </LinearLayout>
 </androidx.cardview.widget.CardView>

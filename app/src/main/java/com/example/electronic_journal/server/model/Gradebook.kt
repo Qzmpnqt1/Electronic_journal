@@ -7,17 +7,8 @@ import java.time.LocalDate
 @Serializable
 data class Gradebook (
     @SerializedName("gradebook_id")
-    var gradebook_id: Int,
+    var gradebookId: Int,
 
     @SerializedName("student_id")
-    var student_id: Int,
-
-    @SerializedName("subject_id")
-    var subject_id: Int,
-
-    @SerializedName("grade")
-    var grade: Int,
-
-    @SerializedName("date_of_grade")
-    var date_of_grade: LocalDate
+    var studentId: Int
 )

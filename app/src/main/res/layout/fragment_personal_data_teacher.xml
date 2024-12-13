@@ -1,22 +1,21 @@
-<?xml version="1.0" encoding="utf-8"?>
 <ScrollView
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/white" >
+    android:background="@color/white">
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical" >
+        android:orientation="vertical">
 
         <!-- Заголовок страницы с личными данными -->
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="35dp"
+            android:layout_marginTop="210dp"
             android:text="Личные данные"
             android:textSize="24sp"
             android:textStyle="bold"
@@ -28,7 +27,7 @@
         <androidx.cardview.widget.CardView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="40dp"
+            android:layout_marginTop="20dp"
             android:layout_marginHorizontal="25dp"
             android:layout_marginBottom="48dp"
             app:cardCornerRadius="20dp"
@@ -42,40 +41,41 @@
                 android:padding="16dp">
 
                 <TextView
-                    android:id="@+id/tvStudentFullName"
+                    android:id="@+id/tvTeacherFullName"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:paddingBottom="20dp"
-                    android:text="ФИО: Иванов Иван Иванович"
                     android:textColor="@color/black"
                     android:textSize="18sp" />
 
                 <TextView
-                    android:id="@+id/tvStudentID"
+                    android:id="@+id/tvTeacherID"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="ID Преподавателя: 12345"
                     android:textSize="18sp"
                     android:textColor="@color/black"
                     android:paddingBottom="20dp" />
 
                 <TextView
-                    android:id="@+id/tvStudentGroup"
+                    android:id="@+id/tvTeacherEmail"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Предметы преподавателя"
-                    android:textSize="18sp"
-                    android:textColor="@color/black"
-                    android:paddingBottom="20dp" />
-
-                <TextView
-                    android:id="@+id/tvStudentEmail"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Email: example@teacher.com"
                     android:textSize="18sp"
                     android:textColor="@color/black" />
             </LinearLayout>
         </androidx.cardview.widget.CardView>
+
+        <!-- Кнопка выхода -->
+        <Button
+            android:id="@+id/btLogout"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:layout_marginTop="170dp"
+            android:layout_marginHorizontal="25dp"
+            android:backgroundTint="@color/red"
+            android:layout_gravity="center"
+            android:text="Выйти из аккаунта"
+            android:textColor="@android:color/white"
+            android:textSize="16sp" />
     </LinearLayout>
 </ScrollView>

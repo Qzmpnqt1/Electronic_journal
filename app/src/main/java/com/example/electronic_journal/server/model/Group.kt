@@ -1,13 +1,16 @@
 package com.example.electronic_journal.server.model
 
-import com.google.gson.annotations.SerializedName;
-import kotlinx.serialization.Serializable;
+import com.google.gson.annotations.SerializedName
 
-@Serializable
-data class Group (
-    @SerializedName("group_id")
-    var group_id: Int,
+data class Group(
+    @SerializedName("groupId")
+    var groupId: Int = 0,
 
     @SerializedName("name")
-    var name: String
+    var name: String = "",
+
+    @SerializedName("subjects")
+    var subjects: List<Subject> = emptyList()
 )
+
+
