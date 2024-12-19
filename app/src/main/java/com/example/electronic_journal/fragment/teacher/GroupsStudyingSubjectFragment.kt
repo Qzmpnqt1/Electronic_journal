@@ -91,8 +91,7 @@ class GroupsStudyingSubjectFragment : Fragment(R.layout.fragment_groups_studying
                 // Переход на фрагмент с подгруженными студентами
                 val fragment = StudentInGroupFragment.newInstance(group.groupId, subject.subjectId)
                 parentFragmentManager.beginTransaction()
-                    .replace(R.id.fragmentContainer, fragment)  // Здесь используем контейнер фрагмента
-                    .addToBackStack(null)  // Добавляем в стек, чтобы можно было вернуться назад
+                    .replace(R.id.fragmentContainer, fragment)  // контейнер фрагмента
                     .commit()
             }
 

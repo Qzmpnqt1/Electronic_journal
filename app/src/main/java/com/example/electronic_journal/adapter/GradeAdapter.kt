@@ -5,7 +5,6 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.example.electronic_journal.databinding.ItemGradeEntryBinding
 import com.example.electronic_journal.server.autorization.GradeEntryDTO
-import com.example.electronic_journal.server.model.GradeEntry
 
 class GradeAdapter(private var gradeEntries: List<GradeEntryDTO>) :
     RecyclerView.Adapter<GradeAdapter.GradeViewHolder>() {

@@ -25,29 +25,33 @@ class TeacherFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        binding.bottomNavigationView.setOnItemSelectedListener { item ->
-            when (item.itemId) {
+        setupBottomNavigation()
+
+        if (savedInstanceState == null) {
+            loadFragment(PersonalDataTeacherFragment())
+        }
+    }
+
+    private fun setupBottomNavigation() {
+        binding.bottomNavigationView.setOnItemSelectedListener { menuItem ->
+            when (menuItem.itemId) {
                 R.id.nav_personal_data -> {
-                    openFragment(PersonalDataTeacherFragment())
+                    loadFragment(PersonalDataTeacherFragment())
                     true
                 }
                 R.id.nav_grade -> {
-                    openFragment(TeacherSubjectFragment())
+                    loadFragment(TeacherSubjectFragment())
                     true
                 }
                 else -> false
             }
         }
-
-        if (savedInstanceState == null) {
-            openFragment(PersonalDataTeacherFragment())
-        }
     }
 
-    private fun openFragment(fragment: Fragment) {
+    private fun loadFragment(fragment: Fragment) {
         requireActivity().supportFragmentManager.beginTransaction()
             .replace(R.id.fragmentContainer, fragment)
-            .addToBackStack(null)
             .commit()
     }
 }
+

@@ -2,7 +2,6 @@ package com.example.electronic_journal.server.model
 
 import com.google.gson.annotations.SerializedName
 import kotlinx.serialization.Serializable
-import java.time.LocalDate
 
 @Serializable
 data class Gradebook (

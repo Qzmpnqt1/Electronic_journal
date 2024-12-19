@@ -9,7 +9,6 @@ import com.example.electronic_journal.server.autorization.StudentRegistrationReq
 import com.example.electronic_journal.server.autorization.SubjectDTO
 import com.example.electronic_journal.server.autorization.TeacherSignUpRequest
 import com.example.electronic_journal.server.model.GradeEntry
-import com.example.electronic_journal.server.model.Gradebook
 import com.example.electronic_journal.server.model.Group
 import com.example.electronic_journal.server.model.Student
 import com.example.electronic_journal.server.model.Subject
@@ -20,7 +19,6 @@ import retrofit2.http.DELETE
 import retrofit2.http.GET
 import retrofit2.http.POST
 import retrofit2.http.Path
-import retrofit2.http.Query
 
 interface ApiService {
     @POST("auth/login")

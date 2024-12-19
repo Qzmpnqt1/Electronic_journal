@@ -6,5 +6,5 @@ data class TeacherSignUpRequest(
     val patronymic: String?,
     val email: String,
     val password: String,
-    val subjectIds: List<Int> // List of Subject IDs
+    val subjectIds: List<Int>
 )

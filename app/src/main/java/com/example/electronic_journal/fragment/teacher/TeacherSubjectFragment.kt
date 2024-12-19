@@ -72,7 +72,6 @@ class TeacherSubjectFragment : Fragment(R.layout.fragment_teacher_subject) {
                 val groupsFragment = GroupsStudyingSubjectFragment.newInstance(subject)
                 fragmentManager?.beginTransaction()
                     ?.replace(R.id.fragmentContainer, groupsFragment)
-                    ?.addToBackStack(null)
                     ?.commit()
             }
 
