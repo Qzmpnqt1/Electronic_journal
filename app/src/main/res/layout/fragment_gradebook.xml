@@ -17,12 +17,13 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Зачётка"
-            android:textSize="24sp"
-            android:textStyle="bold"
-            android:textColor="@color/purple"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="35dp"
             android:paddingBottom="16dp"
-            android:layout_gravity="center_horizontal" />
+            android:text="Зачетка"
+            android:textColor="@color/purple"
+            android:textSize="24sp"
+            android:textStyle="bold" />
 
         <!-- RecyclerView для отображения предметов -->
         <androidx.recyclerview.widget.RecyclerView

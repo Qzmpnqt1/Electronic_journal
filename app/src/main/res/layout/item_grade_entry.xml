@@ -32,13 +32,5 @@
             android:textSize="14sp"
             android:textColor="@color/black"
             android:paddingBottom="4dp" />
-
-        <TextView
-            android:id="@+id/tvDateOfGrade"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Дата: 12.10.2024"
-            android:textSize="14sp"
-            android:textColor="@color/black" />
     </LinearLayout>
 </androidx.cardview.widget.CardView>

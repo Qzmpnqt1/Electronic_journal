@@ -9,7 +9,7 @@ android {
 
     defaultConfig {
         applicationId = "com.example.electronic_journal"
-        minSdk = 24
+        minSdk = 26
         targetSdk = 34
         versionCode = 1
         versionName = "1.0"
@@ -69,7 +69,13 @@ dependencies {
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)
 
+    implementation(libs.androidx.fragment.ktx)
+    implementation(libs.material.v190)
+
     implementation(libs.retrofit)
     implementation(libs.converter.gson)
-    implementation(libs.converter.scalars) // Добавлена зависимость для ScalarsConverterFactory
+    implementation(libs.converter.scalars)
+
+    implementation ("androidx.navigation:navigation-fragment-ktx:2.7.5")
+    implementation ("androidx.navigation:navigation-ui-ktx:2.7.5")
 }

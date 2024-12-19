@@ -5,7 +5,7 @@
         android:icon="@drawable/ic_person"
         android:title="Данные" />
     <item
-        android:id="@+id/nav_gradebook"
+        android:id="@+id/nav_grade"
         android:icon="@drawable/ic_grade"
         android:title="Выставить оценки" />
 </menu>

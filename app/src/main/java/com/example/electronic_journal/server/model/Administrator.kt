@@ -7,11 +7,17 @@ import kotlinx.serialization.Serializable
 data class Administrator (
 
     @SerializedName("administrator_id")
-    var administrator_id: Int,
+    var administratorId: Int,
 
     @SerializedName("name")
     var name: String,
 
     @SerializedName("password")
-    var password: String
+    var password: String,
+
+    @SerializedName("email")
+    var email: String,
+
+    @SerializedName("role")
+    var role: String
 )

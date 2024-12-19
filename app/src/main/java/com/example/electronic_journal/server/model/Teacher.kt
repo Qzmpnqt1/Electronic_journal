@@ -5,8 +5,8 @@ import kotlinx.serialization.Serializable
 
 @Serializable
 data class Teacher (
-    @SerializedName("teacher_id")
-    var teacher_id: Int,
+    @SerializedName("teacherId")
+    var teacherId: Int,
 
     @SerializedName("name")
     val name: String,
@@ -20,6 +20,9 @@ data class Teacher (
     @SerializedName("email")
     val email: String,
 
-    @SerializedName("password")
-    val password: String
+    @SerializedName("role")
+    var role: String,
+
+    @SerializedName("subjects")
+    var subjects: Set<Subject> = emptySet()
 )

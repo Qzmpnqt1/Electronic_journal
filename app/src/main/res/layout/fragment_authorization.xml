@@ -9,7 +9,7 @@
     android:orientation="vertical"
     android:gravity="center"
     android:background="@color/white"
-    tools:context=".activity.AuthorizationActivity">
+    tools:context=".fragment.AuthorizationFragment">
 
     <androidx.cardview.widget.CardView
         android:layout_width="match_parent"
@@ -89,5 +89,3 @@
         android:textColor="@color/purple"
         android:layout_marginBottom="20dp"/>
 </LinearLayout>
-
-

@@ -5,7 +5,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".activity.AdministratorActivity">
+    tools:context=".fragment.entity.AdministratorFragment">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -14,7 +14,6 @@
         android:gravity="center"
         android:padding="15dp">
 
-        <!-- Заголовок интерфейса администратора -->
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -26,7 +25,6 @@
             android:textSize="24sp"
             android:textStyle="bold" />
 
-        <!-- Карточка для добавления группы -->
         <androidx.cardview.widget.CardView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -61,6 +59,21 @@
                     android:padding="12dp"
                     android:textColor="@color/black" />
 
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="16dp"
+                    android:text="Выберите предметы"
+                    android:textColor="@color/black"
+                    android:textSize="16sp" />
+
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/rvSubjects"
+                    android:layout_width="match_parent"
+                    android:layout_height="200dp"
+                    android:layout_marginTop="8dp"
+                    android:background="@drawable/custom_edittext" />
+
                 <Button
                     android:id="@+id/btAddGroup"
                     android:layout_width="match_parent"
@@ -73,7 +86,6 @@
             </LinearLayout>
         </androidx.cardview.widget.CardView>
 
-        <!-- Карточка для удаления группы -->
         <androidx.cardview.widget.CardView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -128,121 +140,6 @@
             </LinearLayout>
         </androidx.cardview.widget.CardView>
 
-        <!-- Карточка для добавления аудитории -->
-        <androidx.cardview.widget.CardView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="48dp"
-            android:layout_marginHorizontal="16dp"
-            app:cardCornerRadius="16dp"
-            app:cardElevation="8dp">
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="vertical"
-                android:padding="15dp">
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Добавить аудиторию"
-                    android:textSize="18sp"
-                    android:textStyle="bold"
-                    android:textColor="@color/black"
-                    android:paddingBottom="8dp" />
-
-                <EditText
-                    android:id="@+id/edClassroomName"
-                    android:layout_width="match_parent"
-                    android:layout_height="50dp"
-                    android:hint="Название аудитории"
-                    android:background="@drawable/custom_edittext"
-                    android:padding="12dp"
-                    android:textSize="16sp"
-                    android:textColor="@color/black"
-                    android:layout_marginTop="8dp" />
-
-                <EditText
-                    android:id="@+id/edClassroomCapacity"
-                    android:layout_width="match_parent"
-                    android:layout_height="50dp"
-                    android:hint="Вместимость"
-                    android:background="@drawable/custom_edittext"
-                    android:inputType="number"
-                    android:padding="12dp"
-                    android:textSize="16sp"
-                    android:textColor="@color/black"
-                    android:layout_marginTop="8dp" />
-
-                <Button
-                    android:id="@+id/btAddClassroom"
-                    android:layout_width="match_parent"
-                    android:layout_height="50dp"
-                    android:text="Добавить"
-                    android:backgroundTint="@color/purple"
-                    android:textColor="@android:color/white"
-                    android:textSize="16sp"
-                    android:layout_marginTop="16dp" />
-            </LinearLayout>
-        </androidx.cardview.widget.CardView>
-
-        <!-- Карточка для удаления аудитории -->
-        <androidx.cardview.widget.CardView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_margin="16dp"
-            app:cardCornerRadius="15dp"
-            app:cardElevation="8dp">
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="vertical"
-                android:padding="15dp">
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:paddingBottom="8dp"
-                    android:text="Удалить аудиторию"
-                    android:textColor="@color/black"
-                    android:textSize="18sp"
-                    android:textStyle="bold" />
-
-                <TextView
-                    android:id="@+id/tvClassroomDetails"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="8dp"
-                    android:text="ID и Название аудитории: (пусто)"
-                    android:textColor="@color/black"
-                    android:textSize="15sp" />
-
-                <EditText
-                    android:id="@+id/edDeleteClassroomName"
-                    android:layout_width="match_parent"
-                    android:layout_height="50dp"
-                    android:layout_marginTop="10dp"
-                    android:background="@drawable/custom_edittext_delete"
-                    android:hint="ID аудитории"
-                    android:padding="12dp"
-                    android:textSize="16sp"
-                    android:textColor="@color/black" />
-
-                <Button
-                    android:id="@+id/btDeleteClassroom"
-                    android:layout_width="match_parent"
-                    android:layout_height="50dp"
-                    android:layout_marginTop="16dp"
-                    android:backgroundTint="@color/red"
-                    android:text="Удалить"
-                    android:textColor="@android:color/white"
-                    android:textSize="16sp" />
-            </LinearLayout>
-        </androidx.cardview.widget.CardView>
-
-        <!-- Карточка для добавления предмета -->
         <androidx.cardview.widget.CardView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -266,17 +163,6 @@
                     android:textSize="18sp"
                     android:textStyle="bold" />
 
-                <!-- Список преподавателей -->
-                <TextView
-                    android:id="@+id/tvTeacherList"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="8dp"
-                    android:text="Список преподавателей: (здесь будут ID и ФИО)"
-                    android:textColor="@color/black"
-                    android:textSize="15sp" />
-
-                <!-- Поле для ввода названия предмета -->
                 <EditText
                     android:id="@+id/edSubjectName"
                     android:layout_width="match_parent"
@@ -288,19 +174,6 @@
                     android:textSize="16sp"
                     android:textColor="@color/black" />
 
-                <!-- Поле для ввода ID преподавателя -->
-                <EditText
-                    android:id="@+id/edTeacherId"
-                    android:layout_width="match_parent"
-                    android:layout_height="50dp"
-                    android:layout_marginTop="8dp"
-                    android:background="@drawable/custom_edittext"
-                    android:hint="ID преподавателя"
-                    android:padding="12dp"
-                    android:textSize="16sp"
-                    android:textColor="@color/black" />
-
-                <!-- Поле для ввода ID преподавателя -->
                 <EditText
                     android:id="@+id/edSubjectCourse"
                     android:layout_width="match_parent"
@@ -312,7 +185,6 @@
                     android:textSize="16sp"
                     android:textColor="@color/black" />
 
-                <!-- Кнопка для добавления предмета -->
                 <Button
                     android:id="@+id/btAddSubject"
                     android:layout_width="match_parent"
@@ -325,7 +197,6 @@
             </LinearLayout>
         </androidx.cardview.widget.CardView>
 
-        <!-- Карточка для удаления предмета -->
         <androidx.cardview.widget.CardView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -380,7 +251,6 @@
             </LinearLayout>
         </androidx.cardview.widget.CardView>
 
-        <!-- Карточка для удаления студента из группы -->
         <androidx.cardview.widget.CardView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -405,7 +275,6 @@
                     android:textSize="18sp"
                     android:textStyle="bold" />
 
-                <!-- Список групп -->
                 <TextView
                     android:id="@+id/tvGroupList"
                     android:layout_width="match_parent"
@@ -415,7 +284,6 @@
                     android:textSize="15sp"
                     android:layout_marginTop="8dp" />
 
-                <!-- Поле для ввода ID группы -->
                 <EditText
                     android:id="@+id/edGroupIdForStudents"
                     android:layout_width="match_parent"
@@ -427,7 +295,6 @@
                     android:textSize="16sp"
                     android:textColor="@color/black" />
 
-                <!-- Кнопка для загрузки студентов из группы -->
                 <Button
                     android:id="@+id/btLoadStudents"
                     android:layout_width="match_parent"
@@ -438,7 +305,6 @@
                     android:textColor="@android:color/white"
                     android:textSize="16sp" />
 
-                <!-- Список студентов в группе -->
                 <TextView
                     android:id="@+id/tvStudentList"
                     android:layout_width="match_parent"
@@ -448,7 +314,6 @@
                     android:textSize="15sp"
                     android:layout_marginTop="10dp" />
 
-                <!-- Поле для ввода ID студента для удаления -->
                 <EditText
                     android:id="@+id/edStudentIdToDelete"
                     android:layout_width="match_parent"
@@ -460,7 +325,6 @@
                     android:textSize="16sp"
                     android:textColor="@color/black" />
 
-                <!-- Кнопка для удаления студента -->
                 <Button
                     android:id="@+id/btDeleteStudent"
                     android:layout_width="match_parent"
@@ -472,6 +336,16 @@
                     android:textSize="16sp" />
             </LinearLayout>
         </androidx.cardview.widget.CardView>
+
+        <Button
+            android:id="@+id/btLogout"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:layout_marginTop="24dp"
+            android:backgroundTint="@color/red"
+            android:text="Выйти из аккаунта"
+            android:textColor="@android:color/white"
+            android:textSize="16sp" />
 
     </LinearLayout>
 </ScrollView>
