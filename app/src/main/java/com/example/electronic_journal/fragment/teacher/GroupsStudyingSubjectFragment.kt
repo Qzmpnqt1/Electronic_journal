@@ -31,7 +31,7 @@ class GroupsStudyingSubjectFragment : Fragment(R.layout.fragment_groups_studying
         fun newInstance(subject: Subject): GroupsStudyingSubjectFragment {
             val fragment = GroupsStudyingSubjectFragment()
             val bundle = Bundle().apply {
-                putParcelable(ARG_SUBJECT, subject)  // Используем putParcelable вместо putSerializable
+                putParcelable(ARG_SUBJECT, subject)
             }
             fragment.arguments = bundle
             return fragment
@@ -51,7 +51,7 @@ class GroupsStudyingSubjectFragment : Fragment(R.layout.fragment_groups_studying
         super.onViewCreated(view, savedInstanceState)
 
         // Получаем аргумент (предмет) из Bundle
-        subject = arguments?.getParcelable(ARG_SUBJECT) ?: return  // Используем getParcelable вместо getSerializable
+        subject = arguments?.getParcelable(ARG_SUBJECT) ?: return
 
         // Получаем ApiService через WebServerSingleton
         apiService = WebServerSingleton.getApiService(requireContext())
